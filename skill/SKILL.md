@@ -96,6 +96,8 @@ Stop and report immediately — do not improvise — if:
 - Completing the objective requires touching out-of-scope files
 ```
 
+The verification command must cover the *whole* scope — a check that tests only part of the scope lets the untested part fail silently.
+
 ## 6. Worker conduct rules
 
 Paste this block verbatim at the end of every packet:
