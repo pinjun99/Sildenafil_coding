@@ -1,4 +1,4 @@
-# efficient-orchestrator
+# orchestrator
 
 A cross-platform agent skill that makes your **top-tier model orchestrate** and your **cheaper models do the heavy lifting** — with the discipline that makes fan-out actually work: seams defined before delegation, self-contained handoff packets, and trust-but-verify review of everything workers report.
 
@@ -51,18 +51,18 @@ The skill is a single folder. Copy it where your agent runtime looks for skills.
 **Claude Code** (global — available in every project):
 
 ```bash
-git clone https://github.com/<you>/efficient-orchestrator
+git clone https://github.com/<you>/orchestrator
 mkdir -p ~/.claude/skills
-cp -r efficient-orchestrator/skill ~/.claude/skills/efficient-orchestrator
+cp -r orchestrator/skill ~/.claude/skills/orchestrator
 ```
 
 **Codex CLI:**
 
 ```bash
-cp -r efficient-orchestrator/skill ~/.codex/skills/efficient-orchestrator
+cp -r orchestrator/skill ~/.codex/skills/orchestrator
 ```
 
-(For a single project instead of global: `.claude/skills/efficient-orchestrator/` inside the repo.)
+(For a single project instead of global: `.claude/skills/orchestrator/` inside the repo.)
 
 No config changes, no instruction-file edits — the skill self-triggers from its frontmatter description when a task looks wide, and you can always invoke it explicitly.
 
@@ -70,8 +70,8 @@ No config changes, no instruction-file edits — the skill self-triggers from it
 
 Mostly: don't think about it. Describe your task normally; when it's wide (a multi-part build, a repo-wide refactor, a bulk audit), the skill loads and the model orchestrates. To force it explicitly:
 
-- Claude Code: `/efficient-orchestrator build a habit-tracker app with auth, history and charts`
-- Codex: `$efficient-orchestrator ...`
+- Claude Code: `/orchestrator build a habit-tracker app with auth, history and charts`
+- Codex: `$orchestrator ...`
 
 When your task is small ("fix this crash"), the skill's own gate tells the model **not** to fan out — that's by design.
 

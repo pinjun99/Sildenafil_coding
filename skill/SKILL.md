@@ -1,5 +1,5 @@
 ---
-name: efficient-orchestrator
+name: orchestrator
 description: Use when a coding or research task is wide — several independent slices that could run in parallel — and the session is running a high-tier model. Plan with the top-tier model, define the seams, fan out bounded work to cheaper worker agents via self-contained handoff packets, then own integration, verification, and final review. Skip for tiny fixes, tightly coupled edits, or single-thread debugging.
 ---
 

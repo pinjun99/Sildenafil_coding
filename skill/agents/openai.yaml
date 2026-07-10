@@ -1,4 +1,4 @@
 interface:
   display_name: "Efficient Orchestrator"
   short_description: "Top-tier model plans and reviews; cheaper workers do bounded parallel slices."
-  default_prompt: "Use $efficient-orchestrator to plan this wide task, define the seams, fan bounded slices out to cheaper worker agents with handoff packets, then integrate and verify the results yourself."
+  default_prompt: "Use $orchestrator to plan this wide task, define the seams, fan bounded slices out to cheaper worker agents with handoff packets, then integrate and verify the results yourself."
