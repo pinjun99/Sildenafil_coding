@@ -77,7 +77,7 @@ When your task is small ("fix this crash"), the skill's own gate tells the model
 
 ## When this is the wrong pattern
 
-This skill assumes your session runs a high-tier model and delegates *down*. If you run cheap sessions and want to escalate hard decisions *up* to a stronger model, you want the inverse (executor/advisor) pattern — a cheap model owning the loop and consulting a premium model on-demand. That is a different skill; this one deliberately stays a pure orchestrator.
+This skill assumes your session runs a high-tier model and delegates *down*. If you run cheap sessions and want to escalate hard decisions *up* to a stronger model, you want the inverse (executor/advisor) pattern — a cheap model owning the loop and consulting a premium model on-demand. That's this repo's [advisor](../advisor/) skill; this one deliberately stays a pure orchestrator.
 
 ## Cost honesty
 

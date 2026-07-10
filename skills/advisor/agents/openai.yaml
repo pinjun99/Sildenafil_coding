@@ -1,0 +1,4 @@
+interface:
+  display_name: "Advisor"
+  short_description: "Mid-tier model executes; a top-tier advisor is consulted at hard trigger points."
+  default_prompt: "Use $advisor: keep executing this task yourself, but consult a top-tier advisor model at the skill's mechanical trigger points, cache rulings in ADVISOR.md, and get the mandatory advisor diff review before shipping."
