@@ -59,12 +59,13 @@ cp -r Sildenafil_coding/skills/orchestrator ~/.claude/skills/
 **Codex CLI:**
 
 ```bash
+mkdir -p ~/.codex/skills
 cp -r Sildenafil_coding/skills/orchestrator ~/.codex/skills/
 ```
 
-(For a single project instead of global: `.claude/skills/orchestrator/` inside the repo.)
+(For a single Claude Code project instead of global: `.claude/skills/orchestrator/` inside the repo.)
 
-No config changes, no instruction-file edits — the skill self-triggers from its frontmatter description when a task looks wide, and you can always invoke it explicitly.
+No config changes needed — in Claude Code the skill self-triggers from its frontmatter description when a task looks wide; on other runtimes auto-triggering varies, so invoke it explicitly or pin it (below).
 
 ## Use
 
@@ -73,7 +74,47 @@ Mostly: don't think about it. Describe your task normally; when it's wide (a mul
 - Claude Code: `/orchestrator build a habit-tracker app with auth, history and charts`
 - Codex: `$orchestrator ...`
 
+**Reliable activation tip:** for projects where you always want fan-out discipline on wide work, add one line to the project's `CLAUDE.md` / `AGENTS.md`: *"For wide multi-slice tasks, follow the `orchestrator` skill."*
+
 When your task is small ("fix this crash"), the skill's own gate tells the model **not** to fan out — that's by design.
+
+## Worked example (one slice of a real fan-out)
+
+Task: "migrate 30 API handlers to the new `ApiError` type." Wide (30 independent files) → gate passes. The orchestrator commits a checkpoint, writes `contracts/api-error.ts` with the exact `ApiError` signature, splits the handlers into 4 batches, and sends each worker a packet like:
+
+```
+OBJECTIVE
+Migrate the 8 handlers listed below to throw ApiError instead of raw Error.
+
+CONTEXT
+Repo path: /work/api
+Starting files: contracts/api-error.ts (the signature you must conform to)
+Background: error middleware already handles ApiError; handlers predate it.
+
+SCOPE
+In scope: src/handlers/{auth,billing,users,webhooks}/*.ts — the 8 files listed.
+Out of scope: the middleware, tests outside these handlers, any other handler.
+
+SEAMS
+Contract file: contracts/api-error.ts — conform exactly.
+Files you own: src/handlers/auth/*.ts, src/handlers/billing/*.ts, ...
+Shared files (manifests, lockfiles, barrels, registries): do NOT edit —
+declare needs in your report's NEEDS section.
+
+EVIDENCE REQUIRED IN YOUR REPORT
+- Line 1: your exact model ID
+- Diffs for every change; commands run with real output
+- NEEDS (or "none"); failures and uncertainties
+
+VERIFICATION
+Command(s): npx vitest run src/handlers/auth src/handlers/billing
+Success criteria: all tests pass; zero remaining `throw new Error` in owned files.
+
+STOP CONDITIONS + CONDUCT
+(as in the skill template)
+```
+
+Workers run in parallel. At vetting, the orchestrator checks each report's model ID, attributes each diff against the checkpoint (`git diff <checkpoint> -- <owned globs>`), applies the collected NEEDS itself, re-runs the full suite once all workers are terminal — and in this example catches that worker 2's diff touched a barrel file outside its globs: ownership violation, slice re-spawned once with a corrected packet.
 
 ## When this is the wrong pattern
 
@@ -81,7 +122,7 @@ This skill assumes your session runs a high-tier model and delegates *down*. If 
 
 ## Cost honesty
 
-Fan-out pays only when slices are genuinely independent and bulky. On wide workloads, 2–5x cost savings and 2–4x wall-clock speedups are realistic; on narrow work the overhead makes it *slower and more expensive* — which is why the go/no-go gate is the first section of the skill.
+Fan-out pays only when slices are genuinely independent and bulky. On wide workloads I've seen multi-x cost and wall-clock savings in my own use; on narrow work the overhead makes it *slower and more expensive* — which is why the go/no-go gate is the first section of the skill, why the gate re-runs mid-flight with an abort rule, and why fan-out width is capped by default.
 
 ## Credits
 

@@ -38,6 +38,7 @@ A mid-tier model's worst mistakes are **confident** ones — it doesn't know whe
 git clone https://github.com/pinjun99/Sildenafil_coding
 mkdir -p ~/.claude/skills
 cp -r Sildenafil_coding/skills/advisor ~/.claude/skills/     # Claude Code
+mkdir -p ~/.codex/skills
 cp -r Sildenafil_coding/skills/advisor ~/.codex/skills/      # Codex CLI
 ```
 

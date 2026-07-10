@@ -30,16 +30,17 @@ cp -r Sildenafil_coding/skills/orchestrator ~/.claude/skills/
 **Codex CLI:**
 
 ```bash
+mkdir -p ~/.codex/skills
 cp -r Sildenafil_coding/skills/orchestrator ~/.codex/skills/
 ```
 
-**Single project only** (instead of global): copy into `.claude/skills/` inside the project repo.
+**Single project only** (Claude Code, instead of global): copy into `.claude/skills/` inside the project repo.
 
 To install a different skill from this collection, swap the folder name. To update, pull and copy again. To uninstall, delete the folder.
 
 ## Use
 
-Mostly: don't think about it. Each skill declares in its frontmatter *when* it applies, and your agent loads it automatically when a task matches. To invoke one explicitly:
+Mostly: don't think about it. Each skill declares in its frontmatter *when* it applies — Claude Code loads it automatically when a task matches; on other runtimes auto-triggering varies, so invoke explicitly or pin a one-liner in your project's `CLAUDE.md`/`AGENTS.md`. To invoke one explicitly:
 
 - Claude Code: `/orchestrator <your task>`
 - Codex: `$orchestrator <your task>`
