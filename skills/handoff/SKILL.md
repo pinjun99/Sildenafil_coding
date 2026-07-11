@@ -39,6 +39,8 @@ Lifecycle: commit the plan in private repos; gitignore it on public remotes (the
 4. Define the plan-wide regression command in the manifest.
 5. Brief 01 materializes the contract stubs; the last brief is always the **final review** (section 8).
 
+**The spec is stable; the briefs are disposable.** The goal, architecture decisions, and contracts are the plan's truth — change them reluctantly. Briefs are cheap derivatives of that truth: regenerating every *pending* brief at a re-plan is normal operation, not failure. Never treat brief text as precious; treat contract changes as expensive.
+
 **Re-planning** (a later top-tier session, summoned by NEXT): bump `PLAN REVISION`; re-stamp every surviving brief with the new revision; classify every *done* brief as {stands | invalidated → append a rework brief} — **a contract change invalidates every brief that embeds it, done or not**; update NEXT. Executors never revise the plan.
 
 ## 5. Brief template
@@ -120,6 +122,7 @@ CONDUCT
 The last brief of every plan, **top-tier floor**, and the only brief allowed to declare the plan done:
 
 - Run the plan-wide regression command and read the full diff of the plan's commits against CONTRACTS.md + stubs — silent near-misses (a nullable made required, a worked-around mismatch) are exactly what per-brief checks miss.
+- **Walk each brief's SCOPE list against the actual code.** Specified-but-absent work is a finding, independent of green tests — tests only cover what an executor chose to test, and "all checks passed" routinely coexists with whole features quietly missing.
 - Read all of STATE: audit every entry's model ID against the tier table (below-floor briefs' diffs are untrusted — re-verify or rework); hunt for deviations that were "worked around" rather than reported.
 - Check whether any test was weakened, skipped, or deleted to get to green.
 - On a public remote: confirm the outgoing diff doesn't include `handoff/`.
