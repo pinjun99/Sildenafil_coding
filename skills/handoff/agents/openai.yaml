@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handoff"
+  short_description: "Top-tier model plans today; cheaper sessions execute the briefs later, unsupervised."
+  default_prompt: "Use $handoff: if asked to plan, write a self-defending multi-session plan to handoff/ (manifest, contracts, premise-gated briefs); if a plan exists, execute exactly the brief named by NEXT to a terminal state."

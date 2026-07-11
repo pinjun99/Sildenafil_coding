@@ -12,6 +12,7 @@ Compatible with **Claude Code**, **Codex CLI**, and any agent runtime that adopt
 |---|---|
 | [orchestrator](skills/orchestrator/) | Your top-tier model plans and reviews; cheaper models do the bounded heavy lifting in parallel. Fan-out with discipline: seams defined before delegation, self-contained handoff packets, trust-but-verify review. Saves premium tokens on wide tasks — and refuses to activate on narrow ones. |
 | [advisor](skills/advisor/) | The inverse: a mid-tier model executes every turn and consults a top-tier model only at hard trigger points — security-sensitive code, schema lock-ins, irreversible commands, repeated failures — plus a mandatory diff review before anything ships. Rulings cached in a decision log so a question is never paid for twice. |
+| [handoff](skills/handoff/) | Fan-out in time: a top-tier model writes a self-defending multi-session plan (premise-gated briefs, contracts as code, a state journal); cheaper sessions execute it later — headless, scheduled, unsupervised — and a mandatory top-tier final review declares it done. Completes the trilogy: orchestrator splits work across agents, advisor splits judgment upward, handoff splits work across time. |
 
 *(More coming as I extract them from my own workflow.)*
 
